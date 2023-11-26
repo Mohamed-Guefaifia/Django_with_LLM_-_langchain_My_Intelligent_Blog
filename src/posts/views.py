@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import BlogPost
-from django.views.generic import CreateView, UpdateView, ListView
+from django.views.generic import CreateView, UpdateView, DetailView,ListView
 
 
 
@@ -26,3 +26,10 @@ class BlogPostUpdate(UpdateView):
     model = BlogPost
     template_name = 'posts/blogpost_edit.html'
     fields = ['title', 'content', 'published' ]
+
+
+class BlogPostDetail(DetailView):
+    model = BlogPost
+    template_name = 'posts/blogpost_detail.html'
+    context_object_name = 'post'
+    field = ['title', 'content' ]
