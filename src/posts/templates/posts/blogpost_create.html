@@ -9,12 +9,13 @@
 <h1> Ajouter un article </h1>
 
 <form method="POST">
-
     {% csrf_token %}
-
-    {{ form }}
-
-    <input type="submit" value="Creer">
+    {% for field in form %}
+    <label for="{{ field.id_published }}">{{ field.label }}</label>
+    {{ field }}
+    {% endfor %}
+    <input type="submit" value="Creer" class="btn btn-submit">
 </form>
+
 
 {% endblock %}
