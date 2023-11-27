@@ -14,15 +14,16 @@
         <div>
             <a href="{% url 'posts:edit' slug=post.slug %}">Editer</a>
             <a href="{% url 'posts:delete' slug=post.slug %}">Supprimer</a>
-            {% endif %}
         </div>
-        <h5 class="post-author">Publie par <i>{{ post.author_or_default }}</i> le {{post.created_on|date:'j F Y'}} </h5>
-        <p class="post-excerpt">{{ post.content|safe|truncatewords:50 }} </p>
-
+        {% endif %}
+        <h5 class="post-author">Publié par <i>{{ post.author_or_default }}</i> le {{ post.created_on|date:'j F Y' }}
+        </h5>
+        <p class="post-excerpt">{{ post.content|safe|truncatewords:50 }}</p>
         <form action="{% url 'posts:post' slug=post.slug %}">
             <button type="submit">Lire l'article</button>
         </form>
     </div>
 </article>
+
 {% endfor %}
 {% endblock %}

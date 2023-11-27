@@ -1,13 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap');
 @import "reset.css";
 
-
-
 body {
     font-family: 'Raleway', sans-serif;
     background-color: mintcream;
 }
-
 
 nav {
     margin: 2rem;
@@ -27,17 +24,14 @@ nav {
     margin-top: 2rem;
 }
 
-
 @media (max-width: 1024px) {
     #blog article {
         width: 85%;
     }
 }
 
-
 .post-title {
-    display: flex;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .post-title a {
@@ -48,20 +42,29 @@ nav {
 
 .post-title a:last-child {
     color: red;
-
 }
 
 .post-title>div {
     margin-left: auto;
+    align-self: center;
 }
-
 
 .post-author {
     margin: .5rem 0;
 }
 
 .post-excerpt {
+    display: block;
+    max-width: 600px;
     margin-bottom: 1rem;
     margin-right: 5rem;
     color: blue;
+    word-wrap: break-word;
+    white-space: normal;/
+}
+
+@media (max-width: 768px) {
+    .post-excerpt {
+        max-width: 100%;
+    }
 }
