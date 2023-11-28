@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap');
+@import "reset.css";
+
+body {
+    font-family: 'Raleway', sans-serif;
+    background-color: mintcream;
+    margin-bottom: 1rem;
+}
+
+nav {
+    margin: 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+#blog {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5rem;
+}
+
+#blog article {
+    width: 50%;
+    margin-top: 2rem;
+}
+
+@media (max-width: 1024px) {
+    #blog article {
+        width: 85%;
+    }
+}
+
+.post-title {
+    display: flex;
+    justify-content: space-between;
+    /* Répartit l'espace et place les éléments aux extrémités */
+    align-items: center;
+    /* Alignement vertical des éléments */
+    width: 100%;
+    color: steelblue;
+
+}
+
+.post-title a {
+    color: steelblue;
+    text-decoration: none;
+    margin-left: .5rem;
+}
+
+.mon_blog {
+    color: steelblue;
+    text-decoration: none;
+    margin-left: .5rem;
+    margin-bottom: 2rem;
+    font-size: 35px;
+}
+
+.post-title a:last-child {
+    color: red;
+}
+
+.post-title>div {
+    margin-left: auto;
+    align-self: center;
+}
+
+.post-author {
+    margin: .5rem 0;
+}
+
+.post-excerpt {
+    max-width: 600px;
+    margin-bottom: 1rem;
+    margin-right: 5rem;
+    color: blue;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+@media (max-width: 768px) {
+    .post-excerpt {
+        max-width: 100%;
+    }
+}
+
+.post-detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.post-detail>h1 {
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+
+}
+
+.post-detail div {
+    max-width: 600px;
+    margin-bottom: 1rem;
+    margin-right: 5rem;
+    margin-left: 5rem;
+    margin-top: 2rem;
+    color: blue;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+
+input,
+textarea {
+    display: block;
+    padding: .75rem;
+    line-height: 1.5;
+    font-size: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    min-width: 600px;
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    box-sizing: border-box;
+    margin: 1rem 0;
+}
+
+.btn {
+    padding: 1rem;
+    border: none;
+    font-weight: 600;
+    font-size: 1.25rem;
+    border-radius: .3rem;
+    color: white;
+    width: 100%;
+    cursor: pointer;
+}
+
+.btn-submit {
+    background-color: steelblue;
+}
+
+.btn-delete {
+    background-color: indianred;
+}

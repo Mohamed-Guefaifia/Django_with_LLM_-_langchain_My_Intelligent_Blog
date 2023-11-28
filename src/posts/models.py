@@ -13,9 +13,10 @@ class BlogPost(models.Model):
     slug = models.SlugField(max_length=255, unique=True, verbose_name='Slug')
     author = models.ForeignKey(User, on_delete=models.SET_NULL,null=True,blank=True)
     last_updated = models.DateTimeField(auto_now=True)
-    created_on = models.DateTimeField(auto_now_add=True)  
+    created_on = models.DateField(blank=True,null=True)  
     published = models.BooleanField(default=False , verbose_name='Published')
     content = models.TextField(blank=True,verbose_name='Contenu')
+    thumbail = models.ImageField(blank=True)
 
     class Meta:
         ordering = ['-created_on']
