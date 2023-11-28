@@ -16,7 +16,7 @@ class BlogPost(models.Model):
     created_on = models.DateField(blank=True,null=True)  
     published = models.BooleanField(default=False , verbose_name='Published')
     content = models.TextField(blank=True,verbose_name='Contenu')
-    thumbail = models.ImageField(blank=True)
+    thumbail = models.ImageField(blank=True,upload_to='blog',verbose_name='Image')
 
     class Meta:
         ordering = ['-created_on']
