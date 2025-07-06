@@ -6,5 +6,6 @@ from blogAI import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('blog/', include('posts.urls')),
+    path('', include('posts.urls')),
+    path('logo/', include('logo_generator.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

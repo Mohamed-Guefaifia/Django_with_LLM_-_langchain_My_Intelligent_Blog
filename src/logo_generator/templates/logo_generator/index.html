@@ -1,0 +1,420 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Générateur de Logos Personnalisés</title>
+{% endblock %}
+
+{% block content %}
+<div class="logo-generator">
+    <div class="header">
+        <h1>🎨 Générateur de Logos Personnalisés</h1>
+        <p>Créez votre logo unique en quelques clics</p>
+    </div>
+
+    <div class="generator-container">
+        <!-- Panneau de contrôles -->
+        <div class="controls-panel">
+            <div class="control-section">
+                <h3>📝 Texte</h3>
+                <input type="text" id="logoText" placeholder="Votre texte" value="Mon Logo" maxlength="50">
+                <label for="fontSize">Taille de police: <span id="fontSizeValue">24</span>px</label>
+                <input type="range" id="fontSize" min="12" max="60" value="24">
+            </div>
+
+            <div class="control-section">
+                <h3>🎭 Type de Logo</h3>
+                <select id="logoType">
+                    <option value="modern">Moderne</option>
+                    <option value="badge">Badge</option>
+                    <option value="minimal">Minimaliste</option>
+                </select>
+                
+                <div id="styleOptions">
+                    <label for="logoStyle">Style:</label>
+                    <select id="logoStyle">
+                        <option value="clean">Propre</option>
+                        <option value="geometric">Géométrique</option>
+                        <option value="gradient">Dégradé</option>
+                        <option value="tech">Technologique</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="control-section">
+                <h3>🎨 Couleurs</h3>
+                <div class="color-row">
+                    <label for="primaryColor">Primaire:</label>
+                    <input type="color" id="primaryColor" value="#3498db">
+                </div>
+                <div class="color-row">
+                    <label for="secondaryColor">Secondaire:</label>
+                    <input type="color" id="secondaryColor" value="#2c3e50">
+                </div>
+                <div class="color-row">
+                    <label for="backgroundColor">Arrière-plan:</label>
+                    <input type="color" id="backgroundColor" value="#ffffff">
+                </div>
+            </div>
+
+            <div class="control-section">
+                <h3>📏 Dimensions</h3>
+                <div class="dimension-row">
+                    <label for="logoWidth">Largeur: <span id="widthValue">300</span>px</label>
+                    <input type="range" id="logoWidth" min="100" max="600" value="300">
+                </div>
+                <div class="dimension-row">
+                    <label for="logoHeight">Hauteur: <span id="heightValue">100</span>px</label>
+                    <input type="range" id="logoHeight" min="50" max="300" value="100">
+                </div>
+            </div>
+
+            <div class="control-section">
+                <h3>💾 Actions</h3>
+                <button id="downloadBtn" class="btn-download">📥 Télécharger SVG</button>
+                <button id="copyBtn" class="btn-copy">📋 Copier le Code</button>
+            </div>
+        </div>
+
+        <!-- Zone de prévisualisation -->
+        <div class="preview-panel">
+            <div class="preview-header">
+                <h3>👁️ Aperçu en Temps Réel</h3>
+            </div>
+            <div class="preview-container" id="logoPreview">
+                <!-- Le logo sera affiché ici -->
+            </div>
+            <div class="preview-info">
+                <p>Le logo se met à jour automatiquement ✨</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.logo-generator {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
+.header p {
+    margin: 10px 0 0 0;
+    opacity: 0.9;
+    font-size: 1.1em;
+}
+
+.generator-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.controls-panel {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.control-section {
+    margin-bottom: 25px;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.control-section h3 {
+    margin: 0 0 15px 0;
+    color: #2c3e50;
+    font-size: 1.2em;
+}
+
+.control-section input[type="text"], 
+.control-section select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    transition: border-color 0.3s ease;
+}
+
+.control-section input[type="text"]:focus,
+.control-section select:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+.control-section input[type="range"] {
+    width: 100%;
+    margin: 10px 0;
+}
+
+.control-section input[type="color"] {
+    width: 60px;
+    height: 40px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.color-row, .dimension-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.color-row label, .dimension-row label {
+    font-weight: 500;
+    color: #555;
+}
+
+.btn-download, .btn-copy {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-download {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+}
+
+.btn-copy {
+    background: linear-gradient(135deg, #2196F3, #1976D2);
+    color: white;
+}
+
+.btn-download:hover, .btn-copy:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.preview-panel {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+}
+
+.preview-header h3 {
+    margin: 0 0 20px 0;
+    color: #2c3e50;
+    font-size: 1.2em;
+}
+
+.preview-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border: 3px dashed #dee2e6;
+    transition: all 0.3s ease;
+}
+
+.preview-container:hover {
+    border-color: #3498db;
+    background: #f0f8ff;
+}
+
+.preview-info {
+    margin-top: 15px;
+    text-align: center;
+    color: #6c757d;
+    font-style: italic;
+}
+
+#styleOptions {
+    margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+    .generator-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .header h1 {
+        font-size: 2em;
+    }
+    
+    .controls-panel, .preview-panel {
+        padding: 15px;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Références aux éléments
+    const logoText = document.getElementById('logoText');
+    const fontSize = document.getElementById('fontSize');
+    const fontSizeValue = document.getElementById('fontSizeValue');
+    const logoType = document.getElementById('logoType');
+    const logoStyle = document.getElementById('logoStyle');
+    const primaryColor = document.getElementById('primaryColor');
+    const secondaryColor = document.getElementById('secondaryColor');
+    const backgroundColor = document.getElementById('backgroundColor');
+    const logoWidth = document.getElementById('logoWidth');
+    const logoHeight = document.getElementById('logoHeight');
+    const widthValue = document.getElementById('widthValue');
+    const heightValue = document.getElementById('heightValue');
+    const logoPreview = document.getElementById('logoPreview');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const copyBtn = document.getElementById('copyBtn');
+    const styleOptions = document.getElementById('styleOptions');
+    
+    let currentSvg = '';
+    
+    // Mettre à jour les valeurs affichées
+    function updateDisplayValues() {
+        fontSizeValue.textContent = fontSize.value;
+        widthValue.textContent = logoWidth.value;
+        heightValue.textContent = logoHeight.value;
+    }
+    
+    // Afficher/masquer les options de style
+    function toggleStyleOptions() {
+        if (logoType.value === 'modern') {
+            styleOptions.style.display = 'block';
+        } else {
+            styleOptions.style.display = 'none';
+        }
+    }
+    
+    // Générer le logo
+    async function generateLogo() {
+        const logoData = {
+            type: logoType.value,
+            text: logoText.value || 'Mon Logo',
+            font_size: parseInt(fontSize.value),
+            primary_color: primaryColor.value,
+            secondary_color: secondaryColor.value,
+            background_color: backgroundColor.value,
+            width: parseInt(logoWidth.value),
+            height: parseInt(logoHeight.value),
+            style: logoStyle.value
+        };
+        
+        try {
+            const response = await fetch('{% url "logo_generator:generate" %}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify(logoData)
+            });
+            
+            if (response.ok) {
+                const svgContent = await response.text();
+                currentSvg = svgContent;
+                logoPreview.innerHTML = svgContent;
+            } else {
+                logoPreview.innerHTML = '<p style="color: red;">Erreur lors de la génération du logo</p>';
+            }
+        } catch (error) {
+            console.error('Erreur:', error);
+            logoPreview.innerHTML = '<p style="color: red;">Erreur de connexion</p>';
+        }
+    }
+    
+    // Télécharger le logo
+    function downloadLogo() {
+        if (!currentSvg) {
+            alert('Aucun logo à télécharger');
+            return;
+        }
+        
+        const blob = new Blob([currentSvg], { type: 'image/svg+xml' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `logo_${logoText.value.replace(/\s+/g, '_')}.svg`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+    
+    // Copier le code SVG
+    function copySvgCode() {
+        if (!currentSvg) {
+            alert('Aucun code à copier');
+            return;
+        }
+        
+        navigator.clipboard.writeText(currentSvg).then(() => {
+            copyBtn.textContent = '✅ Copié !';
+            setTimeout(() => {
+                copyBtn.textContent = '📋 Copier le Code';
+            }, 2000);
+        });
+    }
+    
+    // Event listeners
+    logoText.addEventListener('input', generateLogo);
+    fontSize.addEventListener('input', () => {
+        updateDisplayValues();
+        generateLogo();
+    });
+    logoType.addEventListener('change', () => {
+        toggleStyleOptions();
+        generateLogo();
+    });
+    logoStyle.addEventListener('change', generateLogo);
+    primaryColor.addEventListener('input', generateLogo);
+    secondaryColor.addEventListener('input', generateLogo);
+    backgroundColor.addEventListener('input', generateLogo);
+    logoWidth.addEventListener('input', () => {
+        updateDisplayValues();
+        generateLogo();
+    });
+    logoHeight.addEventListener('input', () => {
+        updateDisplayValues();
+        generateLogo();
+    });
+    
+    downloadBtn.addEventListener('click', downloadLogo);
+    copyBtn.addEventListener('click', copySvgCode);
+    
+    // Initialisation
+    updateDisplayValues();
+    toggleStyleOptions();
+    generateLogo();
+});
+</script>
+{% endblock %}
